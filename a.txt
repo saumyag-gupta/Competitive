@@ -1,0 +1,102 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define ll long long int
+#define pb push_back
+#define f first
+#define s second
+
+struct edge {
+    int A;
+    int B;
+
+   
+};
+
+bool edgecompare(edge lhs, edge rhs) { if(lhs.B!=rhs.B)return lhs.B < rhs.B;
+else return lhs.A<rhs.A;}
+
+int main()
+{
+    //ios_base::sync_with_stdio(false);
+    //cin.tie(NULL);
+    ll t,q;
+    cin>>t;
+    for(q=0;q<t;q++)
+    {
+    ll n,m,i,j,k,flag=0,a[100005],x1,y1;
+    //set<int> s[100005];
+    edge v[100005];
+    cin>>n>>m;
+    
+    for(i=0;i<m;i++)
+    {
+    	cin>>x1>>y1;
+    	
+    	if(x1>=y1)
+    	{
+    		flag=1;
+    		break;
+    	}
+    	else
+    	{
+    		v[i].A=x1;
+    		v[i].B=y1;
+    	}
+    }
+
+sort( v, v+m,edgecompare );
+if(flag==1){cout<<"-1\n";break;
+}
+/*for(i=0;i<m;i++)
+{
+	cout<<v[i].A<<" "<<v[i].B;
+	cout<<"\n";
+}*/
+ll count=1;
+set<int> s;
+ll f=1;
+for(i=0;i<m;i++)
+{
+	if(v[i].A==v[i-1].A && v[i].B==v[i-1].B)continue;
+	if(v[i].A==0)
+	 {a[v[i].B]=count;s.insert(count);count++;
+	 if(v[i].B!=1){f=1;
+	  if(v[i+1].A!=1){flag=1;break;}
+	 }
+	}
+	else if(f==0)
+	 {
+	 	set<int>s1;
+	 	s1=s;
+	 	for(j=v[i].A+1;j<v[i].B;j++)
+	 	 s1.erase(a[j]);
+	 	 
+	    set <int, greater <int> > :: iterator itr;
+	    itr=s1.begin();
+	    a[v[i].B]=*itr;
+	    if(a[v[i].B]!=a[v[i].A]){flag=1;break;}
+	    if(v[i].A!=v[i].B-1)f=1;
+	    
+	 
+	 }
+	 else
+	 {//	cout<<v[i].A<<" "<<v[i].B;
+	 	
+	 	 if(v[i].A!=v[i-1].A+1){flag=1;break;}
+	 else if(v[i].A==v[i].B-1)f=0;
+	 	
+	 	
+	 	
+	 }
+	
+	
+} 
+if(flag==1)cout<<"-1";
+else
+for(i=1;i<=n;i++)
+ cout<<a[i]<<" ";
+ cout<<"\n";
+}
+   return 0;
+}
