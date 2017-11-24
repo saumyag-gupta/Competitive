@@ -1,0 +1,57 @@
+len=[4];
+
+ for i=1:4
+    fprintf("Enter the length of link %i: ",i);
+    len(i)=input('');
+%        len(i)=2*i;
+ end
+pi=3.1415;
+s=min(len);
+l=max(len);
+len = len(len~=s);
+len = len(len~=l);
+p=len(2);
+q=len(1);
+if (s+l)>=(p+q)
+    fprintf("\nThe mechanism is Grashoffian\n");
+else
+    fprintf("\nThe mechanism is non-Grashoffian\n");
+    quit;
+end
+
+c=input('Press Enter to see the animation of the crank-rocker mechanism');
+
+x1=0;y1=0;
+x4=p;y4=0;
+w2=pi*0.016;
+
+o2=2*pi/3;
+
+x2=x1+s*cos(o2);y2=y1+s*sin(o2);
+x3=x4+l*cos(o4);y3=y4+l*sin(o4);
+
+for i=0:500
+    o2=o2-w2;
+    if(pos(o2,s,l,q,p)==0)
+        continue;
+    end
+    o4=calco4(o2,s,l,q,p);
+    clf;
+    x2=x1+s*cos(o2);y2=y1+s*sin(o2);
+    x3=x4+l*cos(o4);y3=y4+l*sin(o4);
+    hold on;
+    line2(x1,y1,x2,y2);
+    line2(x1,y1,x4,y4);
+    line2(x4,y4,x3,y3);
+    line2(x3,y3,x2,y2);
+    hold off;
+    xlim([-2*l 2*l]);
+    ylim([-2*l 2*l]);
+    drawnow limitrate;
+end
+    
+
+
+
+
+    
