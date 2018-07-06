@@ -20,23 +20,20 @@ struct edge {
     ll B; 
 };       
  
-// Returns (x^n) % PRIME
-ll binary_exp(ll x, ll n)
-{
-    if (n == 0) {
-        return 1;
-    } else if (n == 1) {
-        return x % PRIME;
-    } else {
-        ll temp = binary_exp(x, n / 2);
-        temp = (temp * temp) % PRIME;
-         
-        if (n % 2 == 0) {
-            return temp;
-        } else {
-            return ((x % PRIME) * temp) % PRIME;
-        }
-    }
+ll power(ll a, ll b, ll mod){
+	ll x = 1, y = a;
+	while (b > 0){
+		if (b%2){
+			x = (x*y)%mod;
+		}
+		y = (y*y)%mod;
+		b /= 2;
+	}
+	return x%mod;
+}	
+ 
+ll modular_inverse(ll n, ll mod){
+	return power(n, mod-2, mod);
 }
 
 bool edgecompare(edge lhs, edge rhs) { if(lhs.B!=rhs.B)return lhs.B < rhs.B;
