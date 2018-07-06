@@ -13,12 +13,31 @@ using namespace std;
 #define f first
 #define s second
 #define MOD 1000000007
-
+#define PRIME 1000000007 // For mod inverse and binary exponentiation
 
 struct edge {
     ll A;
     ll B; 
-};
+};       
+ 
+// Returns (x^n) % PRIME
+ll binary_exp(ll x, ll n)
+{
+    if (n == 0) {
+        return 1;
+    } else if (n == 1) {
+        return x % PRIME;
+    } else {
+        ll temp = binary_exp(x, n / 2);
+        temp = (temp * temp) % PRIME;
+         
+        if (n % 2 == 0) {
+            return temp;
+        } else {
+            return ((x % PRIME) * temp) % PRIME;
+        }
+    }
+}
 
 bool edgecompare(edge lhs, edge rhs) { if(lhs.B!=rhs.B)return lhs.B < rhs.B;
 else return lhs.A<rhs.A;}
